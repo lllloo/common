@@ -1,4 +1,4 @@
-import { validate } from '../common/yupValidate';
+import { validate, validateAt } from '../common/yupValidate';
 import * as yup from 'yup';
 
 const yupSchema = yup.object({
@@ -62,6 +62,35 @@ describe('測試驗證 schema', () => {
                         path: 'name',
                     })
                 ])
+            )
+        })
+    });
+});
+
+describe('測試單個驗證 schema', () => {
+    test('測試驗證 pass', () => {
+        var data = {
+            name: 'test',
+            email: 'test@gmail.com',
+            hasSub: false,
+            hasSubArr: false,
+        }
+        validateAt(yupSchema, data, 'name').then((res) => {
+            expect(res).toEqual(data.name);
+        })
+    });
+    test('測試驗證 error', () => {
+        var data = {
+            name: '',
+            email: 'test@gmail.com',
+            hasSub: false,
+            hasSubArr: false,
+        }
+        validateAt(yupSchema, data, 'name').catch((res) => {
+            expect(res).toEqual(
+                expect.objectContaining({
+                    path: 'name',
+                })
             )
         })
     });

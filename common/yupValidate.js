@@ -4,3 +4,7 @@ export function validate(schema, data) {
         .catch((err) => new Promise((resolve, reject) => reject(err.inner)));
 }
 
+export function validateAt(schema, data, name) {
+    return schema
+        .validateAt(name, data)
+}
