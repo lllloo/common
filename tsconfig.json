@@ -3,13 +3,13 @@
         "strict": true,
         "target": "es5",
         "module": "commonjs",
+        "esModuleInterop": true,
+
+        "outDir": "./src",
 
         "allowJs": true,
 		"checkJs": true,
     },
-    "include": [
-        "./**/*"
-    ],
     "exclude": [
         "node_modules"
     ]

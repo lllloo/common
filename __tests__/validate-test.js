@@ -1,4 +1,4 @@
-import { checkTWID, checkPhoneNumber, checkEmail } from '../common/validate';
+import { checkTWID, checkPhoneNumber, checkEmail } from '../src/common/validate';
 
 describe('驗證身分證 checkTWID', () => {
     test('空字串 錯誤', () => {

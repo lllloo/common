@@ -4,7 +4,7 @@ import { Schema } from 'yup';
  * 驗證 整個物件
  * @param {Schema} schema 
  * @param {Object} data 
- * @returns {Promise}
+ * @returns {Promise} 
  */
 export function validate(schema, data) {
     return schema

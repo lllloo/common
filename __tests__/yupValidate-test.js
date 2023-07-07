@@ -1,4 +1,4 @@
-import { validate, validateAt } from '../common/yupValidate';
+import { validate, validateAt } from '../src/common/yupValidate';
 import * as yup from 'yup';
 
 const yupSchema = yup.object({
