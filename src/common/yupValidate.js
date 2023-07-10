@@ -4,7 +4,7 @@ import { Schema } from 'yup';
  * 驗證 整個物件
  * @param {Schema} schema 
  * @param {Object} data 
- * @returns {Promise} 
+ * @returns {Promise<Object>} 
  */
 export function validate(schema, data) {
     return schema
@@ -16,7 +16,8 @@ export function validate(schema, data) {
  * 驗證 單個參數
  * @param {Schema} schema 
  * @param {Object} data 
- * @returns {Promise}
+ * @param {String} name
+ * @returns {Promise<Object>}
  */
 export function validateAt(schema, data, name) {
     return schema
