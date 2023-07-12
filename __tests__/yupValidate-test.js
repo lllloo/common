@@ -28,6 +28,7 @@ const yupSchema = yup.object({
                 .required()
             : schema.nullable();
     }),
+    regex: yup.string().required().matches(/^[a-zA-Z ]+$/g)
 });
 
 describe('測試驗證 schema', () => {
@@ -37,6 +38,7 @@ describe('測試驗證 schema', () => {
             email: 'test@gmail.com',
             hasSub: false,
             hasSubArr: false,
+            regex: 'test regex'
         }
         validate(yupSchema, data).then((res) => {
             expect(res).toEqual(data);
@@ -48,6 +50,7 @@ describe('測試驗證 schema', () => {
             email: 'test@gmail.com',
             hasSub: false,
             hasSubArr: false,
+            regex: 'test regex'
         }
         validate(yupSchema, data).catch((res) => {
             expect(res).toHaveLength(1)
