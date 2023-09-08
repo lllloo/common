@@ -1,5 +1,21 @@
 import { formatterNumber, formatterFloat } from '../src/common/formatter';
 
+
+/**
+ * 一個一個輸入
+ * @param {String} str 
+ * @param {*} fn 
+ * @returns {String}
+ */
+function oneByOneEnter(str, fn) {
+    var value = ''
+    str.split('').forEach((item) => {
+        console.log(item);
+        value = fn(`${value}${item}`)
+    })
+    return value
+}
+
 describe('只能輸入正數字', () => {
     test('空字串', () => {
         expect(formatterNumber('')).toBe('');
