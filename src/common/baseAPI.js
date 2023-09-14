@@ -39,7 +39,7 @@ baseAPI.interceptors.response.use(
     error => {
         const { response } = error
         if (response) {
-            console.error(errorCode?.[response.status] || '未知錯誤');
+            console.log(errorCode?.[response.status] || '未知錯誤');
         }
         return Promise.reject(error)
     }

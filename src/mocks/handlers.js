@@ -19,4 +19,9 @@ export const handlers = [
         }),
       )
     }),
+    rest.get(baseUrl+'/user2', (req, res, ctx) => {
+      return res(
+        ctx.status(404)
+      )
+    }),
   ]
