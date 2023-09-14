@@ -1,3 +1,5 @@
+import { checkTWID } from "./validate.js";
+
 /**
  * 只能輸入正整數
  * @param {String} value 數字
@@ -35,3 +37,5 @@ export const formatterFloat = (value) => {
 
     return partInteger + partDecimal;
 };
+
+console.log(checkTWID('123'));

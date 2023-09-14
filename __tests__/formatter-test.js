@@ -1,4 +1,4 @@
-import { formatterNumber, formatterFloat } from '../src/common/formatter';
+import { formatterNumber, formatterFloat } from '../src/common/formatter.js';
 
 describe('只能輸入正數字', () => {
     test('空字串', () => {
