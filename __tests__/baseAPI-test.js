@@ -1,5 +1,5 @@
 import { server } from '../src/mocks/server.js'
-import  { baseAPI }  from '../src/common/baseAPI.js';
+import { baseAPI } from '../src/common/baseAPI.js';
 
 // Establish API mocking before all tests.
 beforeAll(() => server.listen())
@@ -15,16 +15,22 @@ afterAll(() => server.close())
 describe('axios success', () => {
     test('allows user to log in', async () => {
         const res = await baseAPI.get('/user');
-       expect(res).toEqual({ username: 'admin' })
-   })
+        expect(res).toEqual({ username: 'admin' })
+    })
+
+    test('allows user to log in', async () => {
+        const res = await baseAPI.get('/user');
+        expect(res).toEqual({ username: 'admin' })
+    })
+    
 });
 
 describe('axios error', () => {
-    test('allows user to log in', async () => {
+    test('404', async () => {
         try {
             const res = await baseAPI.get('/user2');
-        }catch(e) {
-            expect(e.response.status).toEqual(404)
+        } catch (error) {
+            expect(error.response.status).toEqual(404)
         }
-   })
+    })
 });

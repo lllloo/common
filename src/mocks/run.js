@@ -2,17 +2,19 @@ import { server } from './server.js'
 import  { baseAPI }  from '../common/baseAPI.js';
 
 
-
 server.listen()
 
-const x = async () => {
+const runFormData = async () => {
     try {
-        const res = await baseAPI.get('/user2')
-        console.log(res.data)
+        const res = await baseAPI.get('http://localhost/user')
+        console.log(res)
     } catch (error) {
         console.log(error);
     }
-}
-x();
 
-server.close()
+    server.close()
+}
+runFormData();
+
+
+

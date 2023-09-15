@@ -9,6 +9,9 @@
 
         "allowJs": true,
 		"checkJs": true,
+
+        // 把 catch  捕獲的參數改成 any
+        "useUnknownInCatchVariables": false
     },
     "exclude": [
         "node_modules"

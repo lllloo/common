@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// 
 const baseAPI = axios.create({
     baseURL: '/',
     // 請求超時設定
@@ -17,22 +16,23 @@ const token = null;
 baseAPI.interceptors.request.use(
     config => {
         if (token) {
-            config.headers['Authorization'] = `Bearer ${token}`;
+            config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
     },
-    function (error) {
+    (error) => {
         return Promise.reject(error);
     }
 );
 
+/** @type {HttpErrorCode} */
 const errorCode = {
-    400: '請求錯誤',
-    401: '未授權，請重新登入',
+    400: '請求錯誤，請檢查您的輸入',
+    401: '未登入',
     403: '沒有權限',
-    404: '請求錯誤,未找到該資源',
+    404: '請求錯誤，未找到該資源',
     500: '伺服器端出錯',
-}
+};
 
 baseAPI.interceptors.response.use(
     res => Promise.resolve(res.data),
