@@ -21,7 +21,7 @@ describe('axios success', () => {
 
 describe('axios error', () => {
     test('404', async () => {
-        const spy = jest.spyOn(alertModule, 'errorAlert');
+        const spy = jest.spyOn(alertModule, 'errorAlert').mockImplementation(() => {})
         try {
             const res = await baseAPI.get('/user2');
         } catch (error) {

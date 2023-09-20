@@ -37,5 +37,3 @@ export const formatterFloat = (value) => {
 
     return partInteger + partDecimal;
 };
-
-console.log(checkTWID('123'));

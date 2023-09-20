@@ -37,7 +37,10 @@ baseAPI.interceptors.request.use(
 
 baseAPI.interceptors.response.use(
     res => {
-        return res.data ? Promise.resolve(res.data) : Promise.resolve(res)
+        if (res.headers["content-type"] === 'application/json') {
+            return Promise.resolve(res.data);
+        }
+        return  Promise.resolve(res)
     },
     error => {
         const { response } = error
