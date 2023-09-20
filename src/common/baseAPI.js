@@ -1,9 +1,19 @@
 import axios from "axios";
+import { errorAlert } from "./alert.js";
 
-const baseAPI = axios.create({
+/** @type {HttpErrorCode} */
+const errorCode = {
+    400: '請求錯誤，請檢查您的輸入',
+    401: '未登入',
+    403: '沒有權限',
+    404: '請求錯誤，未找到該資源',
+    500: '伺服器端出錯',
+};
+
+export const baseAPI = axios.create({
     baseURL: '/',
     // 請求超時設定
-    timeout: 10000, 
+    timeout: 10000,
     // 跨域請求是否攜帶 cookie
     withCredentials: false,
     headers: {
@@ -25,24 +35,15 @@ baseAPI.interceptors.request.use(
     }
 );
 
-/** @type {HttpErrorCode} */
-const errorCode = {
-    400: '請求錯誤，請檢查您的輸入',
-    401: '未登入',
-    403: '沒有權限',
-    404: '請求錯誤，未找到該資源',
-    500: '伺服器端出錯',
-};
-
 baseAPI.interceptors.response.use(
-    res => Promise.resolve(res.data),
+    res => {
+        return res.data ? Promise.resolve(res.data) : Promise.resolve(res)
+    },
     error => {
         const { response } = error
         if (response) {
-            console.log(errorCode?.[response.status] || '未知錯誤');
+            errorAlert(errorCode?.[response.status] || '未知錯誤');
         }
         return Promise.reject(error)
     }
 )
-
-export { baseAPI }
