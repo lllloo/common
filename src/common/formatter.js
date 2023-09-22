@@ -10,6 +10,23 @@ export const formatterNumber = (value) => {
     return value!== '' ? Number(value).toString() : '' ;
 };
 
+
+/**
+ * 只能輸入整數
+ * @param {String} value 數字
+ * @returns {String} 取代後的數字
+ */
+export const formatterSignNumber = (value) => {
+    value = value.replace(/[A-Za-z]/g, '')
+        .replace(/^-/, 'N')
+        .replace(/[^\dN]/g, '')
+        .replace('N', '-')
+        .replace(/^(-)?0+(?=\d)/, '$1');
+    if(value === '' || value === '-') return value;    
+    return value;
+};
+
+
 /**
  * 只能輸入小數點第二位
  * @param {String} value 數字

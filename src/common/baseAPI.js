@@ -10,7 +10,11 @@ const errorCode = {
     500: '伺服器端出錯',
 };
 
-export const baseAPI = axios.create({
+/**
+ * Axios instance for making API requests.
+ * @type {import('axios').AxiosInstance}
+ */
+const baseAPI = axios.create({
     baseURL: '/',
     // 請求超時設定
     timeout: 10000,
@@ -40,7 +44,7 @@ baseAPI.interceptors.response.use(
         if (res.headers["content-type"] === 'application/json') {
             return Promise.resolve(res.data);
         }
-        return  Promise.resolve(res)
+        return Promise.resolve(res)
     },
     error => {
         const { response } = error
@@ -50,3 +54,29 @@ baseAPI.interceptors.response.use(
         return Promise.reject(error)
     }
 )
+
+/**
+ * @typedef {import('axios').AxiosRequestConfig} AxiosRequestConfig
+ */
+
+/**
+ * @param {string} url
+ * @param {Object} [params]
+ * @param {AxiosRequestConfig} [config]
+ * @returns {Promise<any>}
+ */
+const baseGet = (url, params, config) => {
+    return baseAPI.get(url, { ...config, params });
+}
+
+/**
+ * @param {string} url
+ * @param {Object} data
+ * @param {AxiosRequestConfig} [config]
+ * @returns {Promise<any>}
+ */
+const basePost = (url, data, config) => {
+    return baseAPI.post(url, data, config)
+}
+
+export { baseAPI, baseGet, basePost }

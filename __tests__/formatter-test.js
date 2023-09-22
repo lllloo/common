@@ -1,4 +1,4 @@
-import { formatterNumber, formatterFloat } from '../src/common/formatter.js';
+import { formatterNumber, formatterSignNumber, formatterFloat } from '../src/common/formatter.js';
 
 
 /**
@@ -36,6 +36,33 @@ describe('只能輸入正數字', () => {
     });
     test('不會有負號', () => {
         expect(mockFormatterNumber('-001')).toBe('1');
+    });
+});
+
+describe('只能輸入負號跟數字', () => {
+
+    /**
+     * @param {string} value 
+     * @returns {string}
+     */
+    const mockFormatterSignNumber = (value) => {
+        return oneByOneEnter(value, formatterSignNumber)
+    }
+
+    test('空字串', () => {
+        expect(mockFormatterSignNumber('')).toBe('');
+    });
+    test('開頭不能為0', () => {
+        expect(mockFormatterSignNumber('001')).toBe('1');
+    });
+    test('不能輸入小數點', () => {
+        expect(mockFormatterSignNumber('123.')).toBe('123');
+    });
+    test('負號', () => {
+        expect(mockFormatterSignNumber('-')).toBe('-');
+        expect(mockFormatterSignNumber('-0')).toBe('-0');
+        expect(mockFormatterSignNumber('-0001')).toBe('-1');
+        expect(mockFormatterSignNumber('-1021')).toBe('-1021');
     });
 });
 
