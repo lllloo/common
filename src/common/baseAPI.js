@@ -79,4 +79,4 @@ const basePost = (url, data, config) => {
     return baseAPI.post(url, data, config)
 }
 
-export { baseAPI, baseGet, basePost }
+export { baseGet, basePost }

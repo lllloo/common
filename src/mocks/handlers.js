@@ -28,12 +28,39 @@ export const handlers = [
   }),
   rest.get(baseUrl + '/image', (_, res, ctx) => {
     const imageBuffer = fs.readFileSync(
-      path.resolve(__dirname, './fixtures/300.png'),
+      path.resolve(__dirname, '../file/100.png'),
     )
     return res(
       ctx.set('Content-Length', imageBuffer.byteLength.toString()),
       ctx.set('Content-Type', 'image/jpeg'),
       ctx.body(imageBuffer),
+    )
+  }),
+  rest.post(baseUrl + '/file', (req, res, ctx) => {
+
+    const body = req.body;
+    if (typeof body !== 'object' || body === null) {
+      return res(
+        ctx.status(400),
+        ctx.json({
+          message: 'no body',
+        })
+      );
+    }
+    if (!req.headers.get('Content-Type')?.includes('multipart/form-data')) {
+      return res(
+        ctx.status(400),
+        ctx.json({
+          message: 'no multipart/form-data',
+        })
+      );
+    }
+
+    return res(
+      ctx.status(200),
+      ctx.json({
+        status: 'ok',
+      }),
     )
   }),
 ]
