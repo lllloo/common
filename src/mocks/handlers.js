@@ -21,12 +21,14 @@ export const handlers = [
       }),
     )
   }),
+
   rest.get(baseUrl + '/user2', (req, res, ctx) => {
     return res(
       ctx.status(404)
     )
   }),
-  rest.get(baseUrl + '/image', (_, res, ctx) => {
+
+  rest.get(baseUrl + '/image', (req, res, ctx) => {
     const imageBuffer = fs.readFileSync(
       path.resolve(__dirname, '../file/100.png'),
     )
@@ -36,26 +38,9 @@ export const handlers = [
       ctx.body(imageBuffer),
     )
   }),
+
   rest.post(baseUrl + '/file', (req, res, ctx) => {
-
-    const body = req.body;
-    if (typeof body !== 'object' || body === null) {
-      return res(
-        ctx.status(400),
-        ctx.json({
-          message: 'no body',
-        })
-      );
-    }
-    if (!req.headers.get('Content-Type')?.includes('multipart/form-data')) {
-      return res(
-        ctx.status(400),
-        ctx.json({
-          message: 'no multipart/form-data',
-        })
-      );
-    }
-
+    console.log(req);
     return res(
       ctx.status(200),
       ctx.json({

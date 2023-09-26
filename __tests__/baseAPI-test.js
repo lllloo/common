@@ -34,27 +34,24 @@ describe('axios error', () => {
     })
 });
 
-describe('axios formData', () => {
+describe('axios download blob', () => {
+    test('image', async () => {
+        const res = await baseGet('/image');
+        const blob = new Blob([res.data], { type: res.headers['content-type'] });
+
+        expect(res.headers['content-type']).toEqual('image/jpeg')
+    })
+});
+
+describe('axios post formData', () => {
     test('formData', async () => {
         var formData = new FormData();
         formData.append('id', '123');
-
         const res = await basePost('/file', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         });
         expect(res.status).toEqual("ok")
-    })
-});
-
-describe('axios formData', () => {
-    test('formData2', async () => {
-        const res = await baseGet('/image');
-        const blob = new Blob([res.data], { type: res.headers['content-type'] });
-        const url = window.URL.createObjectURL(blob);
-        // console.log(url);
-        // downloadFile(res)
-        // console.log(res);
     })
 });
