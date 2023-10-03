@@ -1,5 +1,7 @@
 var FormData = require('form-data');
 import { Blob } from 'buffer';
+import * as path from 'path';
+import * as fs from 'fs';
 
 import { server } from '../src/mocks/server.js'
 import { baseGet, basePost } from '../src/common/baseAPI.js';
@@ -47,6 +49,12 @@ describe('axios post formData', () => {
     test('formData', async () => {
         var formData = new FormData();
         formData.append('id', '123');
+        
+        const imageBuffer = fs.readFileSync(
+            path.resolve(__dirname, '../src/file/100.png'),
+        )
+        formData.append('file', imageBuffer);
+
         const res = await basePost('/file', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'

@@ -40,7 +40,17 @@ export const handlers = [
   }),
 
   rest.post(baseUrl + '/file', (req, res, ctx) => {
-    console.log(req);
+    const body = req.body;
+    if (typeof body !== 'object' || body === null) {
+      return res(
+        ctx.status(400),
+      );
+    }
+    if (!req.headers.get('Content-Type')?.includes('multipart/form-data')) {
+      return res(
+        ctx.status(400)
+      );
+    }
     return res(
       ctx.status(200),
       ctx.json({

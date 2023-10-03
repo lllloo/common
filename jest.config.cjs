@@ -7,7 +7,7 @@ const config = {
         '!**/node_modules/**',
         '!**/mocks/**',
     ],
-    testEnvironment: "jsdom",
+    testEnvironment: "node",
 };
 
 module.exports = config;
