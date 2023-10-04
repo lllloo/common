@@ -3,5 +3,5 @@
  * @param {string} info 
  */
 export const errorAlert = (info) => {
-    console.log(info);
+  console.log(info);
 };

@@ -1,3 +1,3 @@
 declare type HttpErrorCode = {
-    [key: number]: string;
+  [key: number]: string;
 };
