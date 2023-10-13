@@ -1,3 +1,4 @@
+import axios from "axios";
 var FormData = require('form-data');
 import { Blob } from 'buffer';
 import * as path from 'path';
@@ -6,7 +7,6 @@ import * as fs from 'fs';
 import { server } from '../src/mocks/server.js'
 import { baseGet, basePost } from '../src/common/baseAPI.js';
 import * as alertModule from '../src/common/alert.js';
-
 
 beforeAll(() => server.listen())
 afterEach(() => server.resetHandlers())
@@ -45,7 +45,14 @@ describe('axios download blob', () => {
   })
 });
 
+// 目msw的mock server不支持formData
+// 先用spyOn
 describe('axios post formData', () => {
+  const res = { status: "ok" }
+  const basePost = jest
+    .spyOn(axios, "post")
+    .mockResolvedValue(res)
+
   test('formData', async () => {
     var formData = new FormData();
     formData.append('id', '123');

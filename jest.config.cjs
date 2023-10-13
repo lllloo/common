@@ -6,7 +6,7 @@ const config = {
     '!**/node_modules/**',
     '!**/mocks/**',
   ],
-  testEnvironment: "node",
+  testEnvironment: "jest-environment-jsdom",
 };
 
 module.exports = config;
