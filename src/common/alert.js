@@ -1,7 +1,8 @@
+import Swal from 'sweetalert2'
 /**
  * 顯示錯誤訊息
  * @param {string} info 
  */
 export const errorAlert = (info) => {
-  console.log(info);
+  Swal.fire(info)
 };

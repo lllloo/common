@@ -1,10 +1,13 @@
+import Swal from 'sweetalert2'
 import { errorAlert } from '../src/common/alert.js';
 
+jest.mock('sweetalert2', () => ({
+  fire: jest.fn(),
+}))
+
 describe('errorAlert', () => {
-  test('has console', () => {
-    const consoleLogSPY = jest.spyOn(console, 'log').mockImplementation();
+  test('has alert', () => {
     errorAlert('test');
-    expect(consoleLogSPY).toHaveBeenCalled();
-    expect(consoleLogSPY).toHaveBeenCalledWith('test');
+    expect(Swal.fire).toHaveBeenCalledWith('test');
   });
 })
