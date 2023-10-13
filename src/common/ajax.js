@@ -1,11 +1,11 @@
 import { baseGet } from './baseAPI.js';
 
 
-export const getDownloadFile = async () => {
-  const res = await baseGet('/image', { responseType: 'blob' });
-  const blob = new Blob([res.data], { type: res.headers['content-type'] });
-  downloadFile(blob)
-}
+// export const getDownloadFile = async () => {
+//   const res = await baseGet('/image', { responseType: 'blob' });
+//   const blob = new Blob([res.data], { type: res.headers['content-type'] });
+//   downloadFile(blob)
+// }
 
 
 /**

@@ -1,6 +1,5 @@
 import axios from "axios";
 var FormData = require('form-data');
-import { Blob } from 'buffer';
 import * as path from 'path';
 import * as fs from 'fs';
 

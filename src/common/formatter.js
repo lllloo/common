@@ -1,5 +1,3 @@
-import { checkTWID } from "./validate.js";
-
 /**
  * 只能輸入正整數
  * @param {String} value 數字
