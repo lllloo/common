@@ -1,4 +1,4 @@
-import { checkTWID, checkPhoneNumber, checkEmail } from '../src/common/validate.js';
+import { checkTWID, checkPhoneNumber, checkEmail } from '@/common/validate.js';
 
 describe('驗證身分證 checkTWID', () => {
   test('空字串 錯誤', () => {

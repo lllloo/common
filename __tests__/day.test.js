@@ -1,4 +1,4 @@
-import { dayIsBetween } from '../src/common/day';
+import { dayIsBetween } from '@/common/day';
 
 describe('dayIsBetween', () => {
   test('After', () => {

@@ -1,4 +1,4 @@
-import { getHtmlImg } from '../src/common/regex.js';
+import { getHtmlImg } from '@/common/regex.js';
 
 const html = `
 <div id="app">

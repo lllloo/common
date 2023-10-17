@@ -7,6 +7,10 @@ const config = {
     '!**/mocks/**',
   ],
   testEnvironment: "jest-environment-jsdom",
+  // 路徑簡寫
+  moduleNameMapper: {
+    "@/(.*)": "<rootDir>/src/$1"
+  }
 };
 
 module.exports = config;

@@ -1,5 +1,5 @@
 import { server } from './server.js'
-import { baseGet } from '../common/baseAPI.js';
+import { baseGet } from '@/common/baseAPI.js';
 
 
 server.listen()

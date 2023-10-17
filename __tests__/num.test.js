@@ -1,4 +1,4 @@
-import { add, sub, mul, div, round } from '../src/common/num';
+import { add, sub, mul, div, round } from '@/common/num';
 
 describe('加法', () => {
   test('0.1 + 0.2  = 0.3', () => {

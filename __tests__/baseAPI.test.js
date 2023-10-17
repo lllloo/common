@@ -3,9 +3,9 @@ var FormData = require('form-data');
 import * as path from 'path';
 import * as fs from 'fs';
 
-import { server } from '../src/mocks/server.js'
-import { baseGet, basePost } from '../src/common/baseAPI.js';
-import * as alertModule from '../src/common/alert.js';
+import { server } from '@/mocks/server.js'
+import { baseGet, basePost } from '@/common/baseAPI.js';
+import * as alertModule from '@/common/alert.js';
 
 beforeAll(() => server.listen())
 afterEach(() => server.resetHandlers())

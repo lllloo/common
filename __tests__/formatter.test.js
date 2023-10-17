@@ -1,4 +1,4 @@
-import { formatterNumber, formatterSignNumber, formatterFloat } from '../src/common/formatter.js';
+import { formatterNumber, formatterSignNumber, formatterFloat } from '@/common/formatter.js';
 
 
 /**

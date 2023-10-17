@@ -8,11 +8,16 @@
     "allowJs": true,
     "checkJs": true,
     // 把 catch  捕獲的參數改成 any
-    "useUnknownInCatchVariables": false
+    "useUnknownInCatchVariables": false,
+    // 路徑簡寫
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    }
   },
   "exclude": [
     "node_modules",
     "**/*.test.js"
   ]
-  
 }

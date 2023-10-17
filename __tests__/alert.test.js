@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2'
-import { errorAlert } from '../src/common/alert.js';
+import { errorAlert } from '@/common/alert.js';
 
 jest.mock('sweetalert2', () => ({
   fire: jest.fn(),

@@ -1,6 +1,6 @@
-import { getDownloadFile, downloadFile } from '../src/common/ajax';
+import { getDownloadFile, downloadFile } from '@/common/ajax';
 
-jest.mock('../src/common/baseAPI', () => {
+jest.mock('@/common/baseAPI', () => {
   return {
     baseGet: jest.fn().mockResolvedValue({ data: 'hello world', headers: { 'content-type': 'text/plain' } })
   }
