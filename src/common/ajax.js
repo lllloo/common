@@ -1,17 +1,20 @@
-import { baseGet } from './baseAPI.js';
-
-
-// export const getDownloadFile = async () => {
-//   const res = await baseGet('/image', { responseType: 'blob' });
-//   const blob = new Blob([res.data], { type: res.headers['content-type'] });
-//   downloadFile(blob)
-// }
-
+import { baseGet } from './baseAPI';
 
 /**
- * Downloads a file from a Blob object.
- * @param {Blob} blob - The Blob object to download.
- * @returns {void} - A Promise that resolves when the download is complete.
+ * 請求下載檔案
+ * @param {*} fn 
+ * @returns {Promise<void>}
+ */
+export const getDownloadFile = async (fn = downloadFile) => {
+  const res = await baseGet('/image', { responseType: 'blob' });
+  const blob = new Blob([res.data], { type: res.headers['content-type'] });
+  fn(blob)
+}
+
+/**
+ * 下載Blob檔案
+ * @param {Blob} blob
+ * @returns {void}
  */
 export const downloadFile = (blob) => {
   const url = window.URL.createObjectURL(blob);

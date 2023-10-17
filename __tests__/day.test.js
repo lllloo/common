@@ -141,7 +141,7 @@ describe('dayIsBetween', () => {
      * timeB
      */
     const timeA = ['11:00', '13:00'];
-    const timeB = ['11:00', '13:00'];
+    const timeB = ['13:00', '14:00'];
     expect(dayIsBetween(timeA, timeB)).toBe(false);
   });
 
@@ -153,7 +153,7 @@ describe('dayIsBetween', () => {
      * timeB
      */
     const timeA = ['11:00', '13:00'];
-    const timeB = ['13:00', '14:00'];
+    const timeB = ['14:00', '15:00'];
     expect(dayIsBetween(timeA, timeB)).toBe(false);
   });
 

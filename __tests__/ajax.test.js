@@ -1,7 +1,20 @@
-import { downloadFile } from '../src/common/ajax';
+import { getDownloadFile, downloadFile } from '../src/common/ajax';
+
+jest.mock('../src/common/baseAPI', () => {
+  return {
+    baseGet: jest.fn().mockResolvedValue({ data: 'hello world', headers: { 'content-type': 'text/plain' } })
+  }
+})
 
 describe('downloadFile', () => {
-  it('downloads a file', async () => {
+
+  it('downloads ajax', async () => {
+    const mockDownloadFile = jest.fn();
+    await getDownloadFile(mockDownloadFile)
+    expect(mockDownloadFile).toHaveBeenCalled();
+  });
+
+  it('download file', async () => {
     window.URL.createObjectURL = jest.fn();
     window.URL.revokeObjectURL = jest.fn();
     document.body.removeChild = jest.fn();
