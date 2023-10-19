@@ -1,4 +1,4 @@
-import { getDownloadFile, downloadFile } from '@/common/ajax';
+import { getDownloadFile, downloadBlob, downloadFile } from '@/common/ajax';
 
 jest.mock('@/common/baseAPI', () => {
   return {
@@ -6,30 +6,38 @@ jest.mock('@/common/baseAPI', () => {
   }
 })
 
-describe('downloadFile', () => {
+describe('download', () => {
 
   it('downloads ajax', async () => {
+    const mockDownloadBlob = jest.fn();
+    await getDownloadFile(mockDownloadBlob)
+    expect(mockDownloadBlob).toHaveBeenCalled();
+  });
+
+  it('download blob', async () => {
+    window.URL.createObjectURL = jest.fn();
+    window.URL.revokeObjectURL = jest.fn();
+
+    const blob = new Blob(['hello world'], { type: 'text/plain' });
     const mockDownloadFile = jest.fn();
-    await getDownloadFile(mockDownloadFile)
+    await downloadBlob(blob, mockDownloadFile);
+    expect(window.URL.createObjectURL).toHaveBeenCalled();
+    expect(window.URL.revokeObjectURL).toHaveBeenCalled();
     expect(mockDownloadFile).toHaveBeenCalled();
   });
 
   it('download file', async () => {
-    window.URL.createObjectURL = jest.fn();
-    window.URL.revokeObjectURL = jest.fn();
-    document.body.removeChild = jest.fn();
-    let link;
-    jest.spyOn(document.body, "appendChild").mockImplementation((a) => {
-      link = a
-      link.click = jest.fn();
-    });
-    const blob = new Blob(['hello world'], { type: 'text/plain' });
-    await downloadFile(blob);
-    expect(window.URL.createObjectURL).toHaveBeenCalledWith(blob);
-    expect(window.URL.revokeObjectURL).toHaveBeenCalled();
-    expect(document.body.appendChild).toHaveBeenCalled();
-    expect(document.body.removeChild).toHaveBeenCalled();
+    const link = {
+      click: jest.fn()
+    };
+    jest.spyOn(document, "createElement").mockImplementation(() => link);
+    const url = 'http://localhost:8080';
+    const name = 'file';
+    downloadFile(url, name);
+    expect(link.href).toBe(url);
+    expect(link.download).toBe(name);
     expect(link.click).toHaveBeenCalled();
   });
+
 });
 
