@@ -18,8 +18,18 @@ export const isUrl = (url) => {
  * @param {string} url - 要解析的 URL 字串。
  * @returns {Object} 包含搜尋參數的物件。
  */
-export const getSearchObj = (url) => {
+export const getParams = (url) => {
   return Object.fromEntries(
     new URLSearchParams(url).entries(),
   );
 };
+
+
+/**
+ * 將物件轉換為 URL 查詢字串。
+ * @param {Object} obj - 包含查詢參數的物件。
+ * @returns {string} - URL 查詢字串。
+ */
+export const setParams = (obj) => {
+  return Object.keys(obj).map(key => `${key}=${encodeURIComponent(obj[key])}`).join('&');
+}
