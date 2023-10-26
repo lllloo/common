@@ -3,7 +3,7 @@
  * @jest-environment-options {"url": "http://localhost?a=1&b=2"}
  */
 
-import { isUrl, getParams, setParams } from '@/common/url.js';
+import { isUrl, getParams, getParamsString } from '@/common/url.js';
 
 
 describe('isUrl', () => {
@@ -41,15 +41,15 @@ describe('params', () => {
     const obj = {
       name: 'John',
       age: 30,
-      city: 'New York'
+      city: 'New York',
     };
     const expected = 'name=John&age=30&city=New%20York';
-    expect(setParams(obj)).toEqual(expected);
+    expect(getParamsString(obj)).toEqual(expected);
   });
 
   test('returns an empty string for an empty object', () => {
     const obj = {};
     const expected = '';
-    expect(setParams(obj)).toEqual(expected);
+    expect(getParamsString(obj)).toEqual(expected);
   });
 });

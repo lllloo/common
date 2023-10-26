@@ -27,9 +27,11 @@ export const getParams = (url) => {
 
 /**
  * 將物件轉換為 URL 查詢字串。
- * @param {Object} obj - 包含查詢參數的物件。
+ * @param {{ [key: string]: string|number }} obj - 包含查詢參數的物件。
  * @returns {string} - URL 查詢字串。
  */
-export const setParams = (obj) => {
-  return Object.keys(obj).map(key => `${key}=${encodeURIComponent(obj[key])}`).join('&');
+export const getParamsString = (obj) => {
+  return Object.keys(obj)
+    .filter(key => obj[key] !== undefined && obj[key] !== null)
+    .map(key => `${key}=${encodeURIComponent(obj[key])}`).join('&');
 }
