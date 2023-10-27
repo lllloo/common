@@ -4,11 +4,11 @@
  * @returns {Array<String>}
  */
 export const getHtmlImg = (html) => {
-  const regex = /<img.*?src="(.*?)"/g;
-  const arr = [];
-  let match;
-  while (match = regex.exec(html)) {
+  const regex = /<img.*?src="(.*?)"/g
+  const arr = []
+  let match
+  while ((match = regex.exec(html))) {
     arr.push(match[1])
   }
-  return arr;
+  return arr
 }

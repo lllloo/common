@@ -4,5 +4,5 @@
  * @returns {boolean} - 如果陣列中有重複的元素，則返回 true，否則返回 false
  */
 export const hasDuplicates = (arr) => {
-  return new Set(arr).size !== arr.length;
+  return new Set(arr).size !== arr.length
 }

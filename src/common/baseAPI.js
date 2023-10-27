@@ -1,5 +1,5 @@
-import axios from "axios";
-import { errorAlert } from "./alert.js";
+import axios from 'axios'
+import { errorAlert } from './alert.js'
 
 /** @type {HttpErrorCode} */
 const errorCode = {
@@ -7,8 +7,8 @@ const errorCode = {
   401: '未登入',
   403: '沒有權限',
   404: '請求錯誤，未找到該資源',
-  500: '伺服器端出錯',
-};
+  500: '伺服器端出錯'
+}
 
 /**
  * Axios instance for making API requests.
@@ -24,32 +24,32 @@ const baseAPI = axios.create({
     'Content-Type': 'application/json',
     Accept: 'application/json'
   }
-});
+})
 
-const token = null;
+const token = null
 baseAPI.interceptors.request.use(
-  config => {
+  (config) => {
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `Bearer ${token}`
     }
-    return config;
+    return config
   },
   (error) => {
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
-);
+)
 
 baseAPI.interceptors.response.use(
-  res => {
-    if (res.headers["content-type"] === 'application/json') {
-      return Promise.resolve(res.data);
+  (res) => {
+    if (res.headers['content-type'] === 'application/json') {
+      return Promise.resolve(res.data)
     }
     return Promise.resolve(res)
   },
-  error => {
+  (error) => {
     const { response } = error
     if (response) {
-      errorAlert(errorCode?.[response.status] || '未知錯誤');
+      errorAlert(errorCode?.[response.status] || '未知錯誤')
     }
     return Promise.reject(error)
   }
@@ -66,7 +66,7 @@ baseAPI.interceptors.response.use(
  * @returns {Promise<any>}
  */
 const baseGet = (url, params, config) => {
-  return baseAPI.get(url, { ...config, params });
+  return baseAPI.get(url, { ...config, params })
 }
 
 /**

@@ -1,16 +1,15 @@
-import Big from 'big.js';
+import Big from 'big.js'
 
 /**
  * 扁平化陣列
  * @param {number[]|number[][]} args
- * @returns {number[]} 
+ * @returns {number[]}
  */
 const flat = (args) => {
   /** @type {number[]} */
   const array = []
-  return array.concat(...args);
+  return array.concat(...args)
 }
-
 
 /**
  *  加法
@@ -18,10 +17,12 @@ const flat = (args) => {
  * @returns {number} 總和
  */
 export const add = (...args) => {
-  const [first, ...rest] = flat(args);
-  return rest.reduce((acc, val) => {
-    return acc.plus(val)
-  }, Big(first)).toNumber();
+  const [first, ...rest] = flat(args)
+  return rest
+    .reduce((acc, val) => {
+      return acc.plus(val)
+    }, Big(first))
+    .toNumber()
 }
 
 /**
@@ -30,10 +31,12 @@ export const add = (...args) => {
  * @returns {number} 剩餘
  */
 export const sub = (...args) => {
-  const [first, ...rest] = flat(args);
-  return rest.reduce((acc, val) => {
-    return acc.minus(val)
-  }, Big(first)).toNumber();
+  const [first, ...rest] = flat(args)
+  return rest
+    .reduce((acc, val) => {
+      return acc.minus(val)
+    }, Big(first))
+    .toNumber()
 }
 
 /**
@@ -42,10 +45,12 @@ export const sub = (...args) => {
  * @returns {number} 總和
  */
 export const mul = (...args) => {
-  const [first, ...rest] = flat(args);
-  return rest.reduce((acc, val) => {
-    return acc.times(val)
-  }, Big(first)).toNumber();
+  const [first, ...rest] = flat(args)
+  return rest
+    .reduce((acc, val) => {
+      return acc.times(val)
+    }, Big(first))
+    .toNumber()
 }
 
 /**
@@ -54,10 +59,12 @@ export const mul = (...args) => {
  * @returns {number} 剩餘
  */
 export const div = (...args) => {
-  const [first, ...rest] = flat(args);
-  return rest.reduce((acc, val) => {
-    return acc.div(val)
-  }, Big(first)).toNumber();
+  const [first, ...rest] = flat(args)
+  return rest
+    .reduce((acc, val) => {
+      return acc.div(val)
+    }, Big(first))
+    .toNumber()
 }
 
 /**
@@ -67,5 +74,5 @@ export const div = (...args) => {
  * @returns {number}
  */
 export const round = (num, dp = 2) => {
-  return Big(num).round(dp).toNumber();
+  return Big(num).round(dp).toNumber()
 }

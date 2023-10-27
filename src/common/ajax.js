@@ -1,13 +1,13 @@
-import { baseGet } from './baseAPI';
+import { baseGet } from './baseAPI'
 
 /**
  * 請求下載檔案
- * @param {*} fn 
+ * @param {*} fn
  * @returns {Promise<void>}
  */
 export const getDownloadFile = async (fn = downloadBlob) => {
-  const res = await baseGet('/image', { responseType: 'blob' });
-  const blob = new Blob([res.data], { type: res.headers['content-type'] });
+  const res = await baseGet('/image', { responseType: 'blob' })
+  const blob = new Blob([res.data], { type: res.headers['content-type'] })
   fn(blob)
 }
 
@@ -17,9 +17,9 @@ export const getDownloadFile = async (fn = downloadBlob) => {
  * @returns {void}
  */
 export const downloadBlob = (blob, fn = downloadFile) => {
-  const url = window.URL.createObjectURL(blob);
+  const url = window.URL.createObjectURL(blob)
   fn(url, 'file')
-  window.URL.revokeObjectURL(url);
+  window.URL.revokeObjectURL(url)
 }
 
 /**
@@ -29,8 +29,8 @@ export const downloadBlob = (blob, fn = downloadFile) => {
  * @returns {void}
  */
 export const downloadFile = (url, name) => {
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = name;
-  link.click();
+  const link = document.createElement('a')
+  link.href = url
+  link.download = name
+  link.click()
 }

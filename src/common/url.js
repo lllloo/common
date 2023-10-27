@@ -5,13 +5,11 @@
  */
 export const isUrl = (url) => {
   try {
-    return Boolean(new URL(url));
-  }
-  catch (e) {
-    return false;
+    return Boolean(new URL(url))
+  } catch (e) {
+    return false
   }
 }
-
 
 /**
  * 從 URL 中取得搜尋參數的物件。
@@ -19,11 +17,8 @@ export const isUrl = (url) => {
  * @returns {Object} 包含搜尋參數的物件。
  */
 export const getParams = (url) => {
-  return Object.fromEntries(
-    new URLSearchParams(url).entries(),
-  );
-};
-
+  return Object.fromEntries(new URLSearchParams(url).entries())
+}
 
 /**
  * 將物件轉換為 URL 查詢字串。
@@ -32,6 +27,7 @@ export const getParams = (url) => {
  */
 export const getParamsString = (obj) => {
   return Object.keys(obj)
-    .filter(key => obj[key] !== undefined && obj[key] !== null)
-    .map(key => `${key}=${encodeURIComponent(obj[key])}`).join('&');
+    .filter((key) => obj[key] !== undefined && obj[key] !== null)
+    .map((key) => `${key}=${encodeURIComponent(obj[key])}`)
+    .join('&')
 }

@@ -10,4 +10,4 @@ export const getImageInfo = (src) => {
     img.onerror = () => reject(img)
     img.src = src
   })
-};
+}
