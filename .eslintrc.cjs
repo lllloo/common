@@ -16,5 +16,8 @@ module.exports = {
     sourceType: "module",
     allowImportExportEverywhere: true
   },
-  ignorePatterns: ['__tests__/'],
+  ignorePatterns: [
+    '__tests__/', 
+    'jest.polyfills.js'
+  ],
 }

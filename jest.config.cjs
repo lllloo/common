@@ -10,7 +10,12 @@ const config = {
   // 路徑簡寫
   moduleNameMapper: {
     "@/(.*)": "<rootDir>/src/$1"
-  }
+  },
+  // 調整msw的環境
+  testEnvironmentOptions: {
+    customExportConditions: [''],
+  },
+  setupFiles: ['./jest.polyfills.js'],
 };
 
 module.exports = config;
