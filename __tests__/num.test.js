@@ -46,8 +46,18 @@ describe('除法', () => {
 })
 
 describe('四捨五入', () => {
+
+  test('0.556', () => {
+    expect(round(0.554)).toBe(0.55);
+    expect(round(0.555)).toBe(0.56);
+    expect(round(0.556)).toBe(0.56);
+  });
   test('0.1 / 3 = 0.03', () => {
     expect(round(div(0.1, 3))).toBe(0.03);
     expect(round(0.033333333333)).toBe(0.03);
+  });
+
+  test('忽略小數點後的 0', () => {
+    expect(round(1.00)).toBe(1);
   });
 })
