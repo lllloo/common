@@ -4,22 +4,9 @@ import { http, HttpResponse } from 'msw'
 
 const baseUrl = 'http://localhost'
 export const handlers = [
-  http.post(baseUrl + '/login', () => {
-    return new HttpResponse(null, {
-      status: 200
-    })
-  }),
-
   http.get(baseUrl + '/user', () => {
     return HttpResponse.json({ username: 'admin' })
   }),
-
-  http.get(baseUrl + '/user2', () => {
-    return new HttpResponse(null, {
-      status: 404
-    })
-  }),
-
   http.get(baseUrl + '/image', () => {
     const imageBuffer = fs.readFileSync(path.resolve(__dirname, '../file/100.png'))
     return new HttpResponse(imageBuffer, {
@@ -29,7 +16,6 @@ export const handlers = [
       }
     })
   }),
-
   http.post(baseUrl + '/file', async ({ request }) => {
     try {
       const form = await request.formData()
@@ -47,5 +33,15 @@ export const handlers = [
       })
     }
     return HttpResponse.json({ status: 'ok' })
-  })
+  }),
+  // error
+  http.get(baseUrl + '/hasToken', ({ request }) => {
+    if (!request.headers.get('Authorization')) {
+      return new HttpResponse(null, {
+        status: 401
+      })
+    }
+    return new HttpResponse('pass')
+  }),
+  http.get(baseUrl + '/*', () => new HttpResponse(null, { status: 404 }))
 ]

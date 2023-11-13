@@ -6,6 +6,7 @@ import * as fs from 'fs';
 import { server } from '@/mocks/server.js'
 import { baseGet, basePost } from '@/common/baseAPI.js';
 import * as alertModule from '@/common/alert.js';
+import * as cookieModule from '@/common/cookie.js';
 
 beforeAll(() => server.listen())
 afterEach(() => server.resetHandlers())
@@ -17,20 +18,30 @@ describe('axios success', () => {
     expect(res).toEqual({ username: 'admin' })
   })
 
-  test('allows user to log in', async () => {
-    const res = await baseGet('/user');
-    expect(res).toEqual({ username: 'admin' })
-  })
 });
 
 describe('axios error', () => {
-  test('404', async () => {
-    const spy = jest.spyOn(alertModule, 'errorAlert').mockImplementation(() => { })
+  const spyCookie = jest.spyOn(cookieModule, 'getToken').mockImplementation(() => 'testToken')
+  const spyAlert = jest.spyOn(alertModule, 'errorAlert').mockImplementation(() => { })
+  beforeEach(() => {
+    jest.clearAllMocks()
+  });
+  test('401', async () => {
     try {
-      const res = await baseGet('/user2');
+      const res = await baseGet('/hasToken');
+    } catch (error) {
+      expect(error.response.status).toEqual(401)
+      expect(spyCookie).toHaveBeenCalled();
+      expect(spyAlert).toHaveBeenCalled();
+    }
+  })
+
+  test('404', async () => {
+    try {
+      const res = await baseGet('/notfound');
     } catch (error) {
       expect(error.response.status).toEqual(404)
-      expect(spy).toHaveBeenCalled();
+      expect(spyAlert).toHaveBeenCalled();
     }
   })
 });
@@ -39,8 +50,8 @@ describe('axios download blob', () => {
   test('image', async () => {
     const res = await baseGet('/image');
     const blob = new Blob([res.data], { type: res.headers['content-type'] });
-
     expect(res.headers['content-type']).toEqual('image/jpeg')
+    expect(blob).toBeInstanceOf(Blob)
   })
 });
 

@@ -30,10 +30,11 @@
     "big.js": "^6.2.1",
     "dayjs": "^1.11.10",
     "sweetalert2": "^11.6.13",
+    "universal-cookie": "^6.1.1",
     "yup": "^1.2.0"
   },
   "type": "module",
   "engines": {
-      "node": ">=18.0.0"
+    "node": ">=18.0.0"
   }
 }

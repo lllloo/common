@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { errorAlert } from './alert.js'
+import { getToken } from '@/common/cookie'
 
 /** @type {HttpErrorCode} */
 const errorCode = {
@@ -26,9 +27,9 @@ const baseAPI = axios.create({
   }
 })
 
-const token = null
 baseAPI.interceptors.request.use(
   (config) => {
+    const token = getToken()
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
