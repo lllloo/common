@@ -14,7 +14,8 @@ export const pasteWord = (element, val) => {
   var myPrefix = textarea.value.substring(0, selectionStart)
   var mySuffix = textarea.value.substring(selectionEnd)
   textarea.value = myPrefix + val + mySuffix
-
+  // vue 須加上讓雙向綁定數據更新
+  // textarea.dispatchEvent(new Event('input'))
   textarea.focus()
   textarea.setSelectionRange(selectionStart + val.length, selectionStart + val.length)
 }
