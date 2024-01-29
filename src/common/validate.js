@@ -18,6 +18,47 @@ export const checkTWID = (value) => {
   return weightsNum % 10 == 0
 }
 
+
+/**
+ * 驗證統一編號
+ * @param {String} value 統一編號
+ * @returns {Boolean} 是否正確
+ */
+export const checkUniformNumbers = (value) => {
+  var regex = new RegExp(/^\d{8}$/)
+  if (!regex.test(value)) return false
+
+  const code = [1, 2, 1, 2, 1, 2, 4, 1]
+  let weightsNum = 0
+
+  if (value[6] !== '7') {
+    weightsNum = [...value].reduce((acc, cur, i) => {
+      var number = parseInt(cur) * code[i]
+      if (number >= 10) {
+        var moreThen10 = `${number}`
+        number = parseInt(moreThen10[0]) + parseInt(moreThen10[1])
+      }
+      return acc + number
+    }, 0)
+    return weightsNum % 5 === 0
+  }
+
+  // 第7位數為7
+  weightsNum = [...value].reduce((acc, cur, i) => {
+    if (i === 6) {
+      return acc
+    }
+    var number = parseInt(cur) * code[i]
+    if (number >= 10) {
+      var moreThen10 = `${number}`
+      number = parseInt(moreThen10[0]) + parseInt(moreThen10[1])
+    }
+    return acc + number
+  }, 0)
+  return (weightsNum % 5 === 0) || ((weightsNum + 1) % 5 === 0)
+}
+
+
 /**
  * 驗證手機號碼
  * @param {String} value 身分證號

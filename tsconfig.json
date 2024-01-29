@@ -9,6 +9,7 @@
     "checkJs": true,
     // 把 catch  捕獲的參數改成 any
     "useUnknownInCatchVariables": false,
+    "downlevelIteration": true,
     // 路徑簡寫
     "paths": {
       "@/*": [

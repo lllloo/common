@@ -1,4 +1,3 @@
-
 /**
  * 取得分頁列表
  * @param {Number} current 當前頁面
@@ -6,7 +5,6 @@
  * @param {Number} totalToDisplayPage 總共顯示幾頁
  */
 export const getShowPageList = (current, pageCount, totalToDisplayPage) => {
-
   if (totalToDisplayPage >= pageCount) {
     return [...new Array(pageCount).fill(0).map((_, i) => i + 1)]
   }
@@ -14,7 +12,10 @@ export const getShowPageList = (current, pageCount, totalToDisplayPage) => {
   // 一邊顯示幾頁
   const sidePage = Math.floor(totalToDisplayPage / 2)
   let list = [
-    ...new Array(sidePage).fill(0).map((_, i) => 0 - i).reverse(),
+    ...new Array(sidePage)
+      .fill(0)
+      .map((_, i) => 0 - i)
+      .reverse(),
     ...new Array(pageCount).fill(0).map((_, i) => i + 1),
     ...new Array(sidePage).fill(0).map((_, i) => pageCount + i + 1)
   ]
