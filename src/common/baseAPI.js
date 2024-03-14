@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { errorAlert } from './alert.js'
-import { getToken } from '@/common/cookie'
+import { getToken } from '@/common/universalCookie'
 
 /** @type {HttpErrorCode} */
 const errorCode = {
