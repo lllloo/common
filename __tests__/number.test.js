@@ -1,4 +1,4 @@
-import { toThousands } from '@/common/number';
+import { toThousands, padStart } from '@/common/number';
 
 describe('toThousands', () => {
   it('應該回傳帶有千分位分隔符的字串', () => {
@@ -24,5 +24,13 @@ describe('toThousands', () => {
     expect(toThousands(undefined)).toBe('');
     expect(toThousands(null)).toBe('');
     expect(toThousands('')).toBe('');
+  });
+})
+
+describe('padStart', () => {
+  it('應該在字串前面填充指定的字符', () => {
+    expect(padStart('', 4)).toBe('0000');
+    expect(padStart('123', 4)).toBe('0123');
+    expect(padStart('01', 4)).toBe('0001');
   });
 });

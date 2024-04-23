@@ -6,7 +6,7 @@ import * as fs from 'fs';
 import { server } from '@/mocks/server.js'
 import { baseGet, basePost } from '@/common/baseAPI.js';
 import * as alertModule from '@/common/alert.js';
-import * as cookieModule from '@/common/cookie.js';
+import * as cookieModule from '@/common/universalCookie';
 
 beforeAll(() => server.listen())
 afterEach(() => server.resetHandlers())
