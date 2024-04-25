@@ -12,3 +12,18 @@ export const getHtmlImg = (html) => {
   }
   return arr
 }
+
+/**
+ * 驗證是否只有中文
+ * @param {String} str
+ * @returns {Boolean}
+ */
+export const checkChinese = (str) => {
+  try {
+    const regex = /^\p{Unified_Ideograph}+$/u
+    return regex.test(str)
+  } catch (error) {
+    const regex = /^[\u4E00-\u9FFF]+$/
+    return regex.test(str)
+  }
+}
