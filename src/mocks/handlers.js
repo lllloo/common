@@ -8,11 +8,10 @@ export const handlers = [
     return HttpResponse.json({ username: 'admin' })
   }),
   http.get(baseUrl + '/image', () => {
-    const imageBuffer = fs.readFileSync(path.resolve(__dirname, '../file/100.png'))
-    return new HttpResponse(imageBuffer, {
+    const buffer = fs.readFileSync(path.resolve(__dirname, '../file/100.png'))
+    return HttpResponse.arrayBuffer(buffer, {
       headers: {
-        'Content-Length': imageBuffer.byteLength.toString(),
-        'Content-Type': 'image/jpeg'
+        'Content-Type': 'image/png'
       }
     })
   }),

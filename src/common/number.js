@@ -1,10 +1,9 @@
-
 /**
  * 千分位加逗點
  * @param {number|string} value 數字
  * @returns {number|string} 千分位加逗點
  */
-export const toThousands = (value = "") => {
+export const toThousands = (value = '') => {
   if (!value && value !== 0) return ''
   try {
     const formatValue = new Intl.NumberFormat('en').format(Number(value))
@@ -13,7 +12,6 @@ export const toThousands = (value = "") => {
     return value
   }
 }
-
 
 /**
  * 數字補零

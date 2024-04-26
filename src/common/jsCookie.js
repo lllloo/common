@@ -5,10 +5,9 @@ import Cookies from 'js-cookie'
  * @type {Cookies}
  */
 export const cookies = Cookies.withAttributes({
-  path: "/",
-  expires: 3,
-});
-
+  path: '/',
+  expires: 3
+})
 
 /**
  * 從 cookies 取得 token。

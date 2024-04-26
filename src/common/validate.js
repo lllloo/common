@@ -18,7 +18,6 @@ export const checkTWID = (value) => {
   return weightsNum % 10 == 0
 }
 
-
 /**
  * 驗證統一編號
  * @param {String} value 統一編號
@@ -55,9 +54,8 @@ export const checkUniformNumbers = (value) => {
     }
     return acc + number
   }, 0)
-  return (weightsNum % 5 === 0) || ((weightsNum + 1) % 5 === 0)
+  return weightsNum % 5 === 0 || (weightsNum + 1) % 5 === 0
 }
-
 
 /**
  * 驗證手機號碼

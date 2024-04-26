@@ -31,9 +31,11 @@ export const dayIsBetween = (timeA, timeB) => {
   const end1 = dayjs(timeA[1], format)
   const start2 = dayjs(timeB[0], format)
   const end2 = dayjs(timeB[1], format)
-  return (start1.isSame(start2) && end1.isSame(end2)) ||
+  return (
+    (start1.isSame(start2) && end1.isSame(end2)) ||
     start1.isBetween(start2, end2, 'hour', '()') ||
     end1.isBetween(start2, end2, 'hour', '()') ||
     start2.isBetween(start1, end1, 'hour', '()') ||
     end2.isBetween(start1, end1, 'hour', '()')
+  )
 }
