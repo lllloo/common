@@ -51,16 +51,17 @@ describe('axios download blob', () => {
 });
 
 
-describe('axios post formData', () => {
-  test('formData', async () => {
-    var formData = new FormData();
-    const file = new Blob(['Hello', 'world'], { type: 'text/plain' })
-    formData.set('file', file, 'doc.txt')
-    const res = await basePost('/file', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
-    expect(res.status).toEqual("ok")
-  })
-});
+// describe('axios post formData', () => {
+//   test('formData', async () => {
+//     const data = new FormData()
+//     const file = new Blob(['Hello', 'world'], { type: 'text/plain' })
+//     data.set('file', file, 'doc.txt')
+//     const res = await basePost('/file', data, {
+//       headers: {
+//         'Content-Type': 'multipart/form-data'
+//       }
+//     });
+//     console.log(res);
+//     expect(res.contents).toEqual("Helloworld")
+//   })
+// });

@@ -15,24 +15,24 @@ export const handlers = [
       }
     })
   }),
-  http.post(baseUrl + '/file', async ({ request }) => {
-    try {
-      const form = await request.formData()
-      if (!form.get('file')) {
-        throw new Error('no file')
-      }
-    } catch (error) {
-      return new HttpResponse(null, {
-        status: 400
-      })
-    }
-    if (!request.headers.get('Content-Type')?.includes('multipart/form-data')) {
-      return new HttpResponse(null, {
-        status: 400
-      })
-    }
-    return HttpResponse.json({ status: 'ok' })
-  }),
+  // http.post(baseUrl + '/file', async ({ request }) => {
+  //   const data = await request.formData()
+  //   const file = data.get('file')
+
+  //   if (!file) {
+  //     return new HttpResponse('Missing document', { status: 400 })
+  //   }
+
+  //   if (!(file instanceof File)) {
+  //     return new HttpResponse('Uploaded document is not a File', {
+  //       status: 400,
+  //     })
+  //   }
+
+  //   return HttpResponse.json({
+  //     contents: await file.text(),
+  //   })
+  // }),
   // error
   http.get(baseUrl + '/hasToken', ({ request }) => {
     if (!request.headers.get('Authorization')) {
