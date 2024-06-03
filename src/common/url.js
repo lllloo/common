@@ -15,6 +15,7 @@ export const isUrl = (url) => {
  * 從 URL 中取得搜尋參數的物件。
  * @param {string} url - 要解析的 URL 字串。
  * @returns {Object} 包含搜尋參數的物件。
+ * @example getParams(window.location.search)
  */
 export const getParams = (url) => {
   return Object.fromEntries(new URLSearchParams(url).entries())
