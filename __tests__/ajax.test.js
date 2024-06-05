@@ -1,3 +1,4 @@
+import { baseGet } from '@/common/baseAPI'
 import { getDownloadFile, downloadBlob, downloadFile } from '@/common/ajax';
 
 jest.mock('@/common/baseAPI', () => {
@@ -11,6 +12,7 @@ describe('download', () => {
   it('downloads ajax', async () => {
     const mockDownloadBlob = jest.fn();
     await getDownloadFile(mockDownloadBlob)
+    expect(baseGet).toHaveBeenCalled();
     expect(mockDownloadBlob).toHaveBeenCalled();
   });
 
