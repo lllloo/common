@@ -4,8 +4,7 @@
  * @param {string} val - 要插入的文字
  */
 export const pasteWord = (element, val) => {
-  if (!element) return
-  if (element.type !== 'textarea') return
+  if (element?.type !== 'textarea') return
   const textarea = element
 
   const length = textarea.value.length

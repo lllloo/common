@@ -11,4 +11,8 @@ describe('測試 pasteWord', () => {
     expect(textarea.value).toBe('hello goodbye world')
     expect(textarea.selectionStart).toBe(13)
   })
+
+  test('測試 沒帶參數', async () => {
+    expect(pasteWord(null, 'goodbye')).toBe(undefined);
+  })
 })
