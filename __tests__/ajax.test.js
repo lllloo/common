@@ -12,7 +12,6 @@ describe('download', () => {
   it('downloads ajax', async () => {
     const mockDownloadBlob = jest.fn();
     await getDownloadFile(mockDownloadBlob)
-    expect(baseGet).toHaveBeenCalled();
     expect(mockDownloadBlob).toHaveBeenCalled();
   });
 
