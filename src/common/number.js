@@ -27,3 +27,13 @@ export const padStart = (value, length, padString = '0') => {
     return value
   }
 }
+
+/**
+ * 生成指定範圍內的隨機整數
+ * @param {number} min - 最小值
+ * @param {number} max - 最大值
+ * @returns {number} - 隨機整數
+ */
+export const getRandom = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}

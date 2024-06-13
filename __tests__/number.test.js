@@ -1,4 +1,4 @@
-import { toThousands, padStart } from '@/common/number';
+import { toThousands, padStart, getRandom } from '@/common/number';
 
 describe('toThousands', () => {
   it('應該回傳帶有千分位分隔符的字串', () => {
@@ -32,5 +32,30 @@ describe('padStart', () => {
     expect(padStart('', 4)).toBe('0000');
     expect(padStart('123', 4)).toBe('0123');
     expect(padStart('01', 4)).toBe('0001');
+  });
+});
+
+describe('getRandom', () => {
+  it('應該回傳在指定範圍內的隨機整數', () => {
+    const result = getRandom(1, 10);
+    expect(result).toBeGreaterThanOrEqual(1);
+    expect(result).toBeLessThanOrEqual(10);
+  });
+
+  it('應該在最小值和最大值相等時回傳最小值', () => {
+    const result = getRandom(5, 5);
+    expect(result).toBe(5);
+  });
+
+  it('應該處理負數', () => {
+    const result = getRandom(-10, -1);
+    expect(result).toBeGreaterThanOrEqual(-10);
+    expect(result).toBeLessThanOrEqual(-1);
+  });
+
+  it('應該處理浮點數', () => {
+    const result = getRandom(1.5, 5.5);
+    expect(result).toBeGreaterThanOrEqual(1);
+    expect(result).toBeLessThanOrEqual(5);
   });
 });
