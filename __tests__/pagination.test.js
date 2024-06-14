@@ -15,4 +15,14 @@ describe('getShowPageList', () => {
     const result = getShowPageList(10, 10, 5);
     expect(result).toEqual([6, 7, 8, 9, 10]);
   });
+
+  test('顯示頁數大於總共頁數', () => {
+    const result = getShowPageList(1, 4, 5);
+    expect(result).toEqual([1, 2, 3, 4]);
+  });
+
+  test('偶數的狀況', () => {
+    const result = getShowPageList(1, 6, 4);
+    expect(result).toEqual([1, 2, 3, 4]);
+  });
 });
