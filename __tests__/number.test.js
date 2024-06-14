@@ -55,7 +55,7 @@ describe('getRandom', () => {
 
   it('應該處理浮點數', () => {
     const result = getRandom(1.5, 5.5);
-    expect(result).toBeGreaterThanOrEqual(1);
-    expect(result).toBeLessThanOrEqual(5);
+    expect(result).toBeGreaterThanOrEqual(1.2);
+    expect(result).toBeLessThanOrEqual(5.5);
   });
 });
