@@ -25,6 +25,13 @@ describe('toThousands', () => {
     expect(toThousands(null)).toBe('');
     expect(toThousands('')).toBe('');
   });
+
+  it('Intl.NumberFormat 不支援', () => {
+    const origin = Intl.NumberFormat
+    Intl.NumberFormat = undefined
+    expect(toThousands('1000')).toBe('1000');
+    Intl.NumberFormat = origin
+  });
 })
 
 describe('padStart', () => {
@@ -33,6 +40,13 @@ describe('padStart', () => {
     expect(padStart('123', 4)).toBe('0123');
     expect(padStart('01', 4)).toBe('0001');
   });
+
+  it('padStart 不支援', () => {
+    const origin = String.prototype.padStart
+    String.prototype.padStart = undefined
+    expect(padStart('123', 4)).toBe('123');
+    String.prototype.padStart = origin
+  })
 });
 
 describe('getRandom', () => {
