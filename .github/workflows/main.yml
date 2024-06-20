@@ -16,16 +16,16 @@ jobs:
         run: |
           docker build -t myapp:latest .
   run:
-    needs: build
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - uses: actions/checkout@v3
       - name: Run Tests
         run: |
           docker run myapp
   notify:
-    needs: run
     runs-on: ubuntu-latest
+    needs: run
     steps:
       - name: send telegram message on push
         uses: appleboy/telegram-action@master
