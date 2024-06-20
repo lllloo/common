@@ -33,6 +33,15 @@ jobs:
       - name: Fetch API Data 📦
         uses: JamesIves/fetch-api-data-action@v2
         with:
-          endpoint: https://notify-api.line.me/api/notify
-          configuration: '{ "method": "POST", "headers": {"Authorization": "Bearer ${{ secrets.LINE_TOKEN }}"}, "body":{ "message": "${{ github.actor }} Commit message: ${{ github.event.commits[0].message }}" }}'
+          endpoint: 'https://notify-api.line.me/api/notify?"'
+          configuration: |
+            { 
+              "method": "POST", 
+              "headers": {
+                "Authorization": "Bearer ${{ secrets.LINE_TOKEN }}"
+              },
+              "body": '{
+                "message": "${{ github.actor }} - Commit message: ${{ github.event.commits[0].message }}"
+              }'
+            }
 
