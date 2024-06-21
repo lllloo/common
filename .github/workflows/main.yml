@@ -36,8 +36,12 @@ jobs:
             Repository: ${{ github.repository }}
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
 
-      - name: Fetch API Data 📦
-        uses: JamesIves/fetch-api-data-action@v2
+      - name: send default message
+        uses: louis70109/line-notify-action@master
         with:
-          endpoint: 'https://notify-api.line.me/api/notify?message="${{ github.actor }} - Commit message: ${{ github.event.commits[0].message }}"'
-          configuration: '{ "method": "POST", "headers": {"Authorization": "Bearer ${{ secrets.LINE_TOKEN }}"}}'
+          token: ${{ secrets.LINE_TOKEN }}
+          message: |
+            ${{ github.actor }} created commit:
+            Commit message: ${{ github.event.commits[0].message }}
+            Repository: ${{ github.repository }}
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
