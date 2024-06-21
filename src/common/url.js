@@ -27,8 +27,7 @@ export const getParams = (url) => {
  * @returns {string} - URL 查詢字串。
  */
 export const getParamsString = (obj) => {
-  return Object.keys(obj)
-    .filter((key) => obj[key] !== undefined && obj[key] !== null)
-    .map((key) => `${key}=${encodeURIComponent(obj[key])}`)
+  return Object.entries(obj)
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
     .join('&')
 }
