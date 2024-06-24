@@ -3,7 +3,7 @@
  * @jest-environment-options {"url": "http://localhost?a=1&b=2"}
  */
 
-import { isUrl, getParams, getParamsString } from '@/common/url.js';
+import { isUrl, getParams, getParamsString, autoLink } from '@/common/url.js';
 
 
 describe('isUrl', () => {
@@ -51,5 +51,31 @@ describe('params', () => {
     const obj = {};
     const expected = '';
     expect(getParamsString(obj)).toEqual(expected);
+  });
+});
+
+describe('autoLink', () => {
+  test('將文字中的網址轉換為超連結 https', () => {
+    const text = '請查看這個網站：https://www.google.com';
+    const expected = '請查看這個網站：<a href="https://www.google.com" target="_blank">https://www.google.com</a>';
+    expect(autoLink(text)).toEqual(expected);
+  });
+
+  test('將文字中的網址轉換為超連結 http', () => {
+    const text = '請查看這個網站：http://www.google.com';
+    const expected = '請查看這個網站：<a href="http://www.google.com" target="_blank">http://www.google.com</a>';
+    expect(autoLink(text)).toEqual(expected);
+  });
+
+  test('將文字中的多個網址轉換為超連結', () => {
+    const text = '請訪問我的部落格 http://www.google.com 和我的作品集 https://www.google.com/portfolio';
+    const expected = '請訪問我的部落格 <a href="http://www.google.com" target="_blank">http://www.google.com</a> 和我的作品集 <a href="https://www.google.com/portfolio" target="_blank">https://www.google.com/portfolio</a>';
+    expect(autoLink(text)).toEqual(expected);
+  });
+
+  test('不轉換沒有 http/https 協議的網址', () => {
+    const text = '請查看這個網站：www.google.com';
+    const expected = '請查看這個網站：<a href="https://www.google.com" target="_blank">www.google.com</a>';
+    expect(autoLink(text)).toEqual(expected);
   });
 });

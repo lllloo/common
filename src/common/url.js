@@ -31,3 +31,19 @@ export const getParamsString = (obj) => {
     .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
     .join('&')
 }
+
+/**
+ * 將字串中網址自動加上超連結 https 或 http 或 www 開頭的網址
+ * @param {string} text - 要處理的字串
+ * @returns {string} - 處理後的字串
+ */
+export const autoLink = (text) => {
+  return text.replace(/(https?:\/\/\S+)|(www\.\S+)/g, (match) => {
+    const url = match.startsWith('https')
+      ? match
+      : match.startsWith('http')
+        ? match
+        : `https://${match}`
+    return `<a href="${url}" target="_blank">${match}</a>`
+  })
+}
