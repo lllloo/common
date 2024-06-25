@@ -9,6 +9,10 @@ jest.mock('@/common/baseAPI', () => {
 
 describe('download', () => {
 
+  beforeEach(() => {
+    jest.clearAllMocks()
+  });
+
   it('downloads ajax', async () => {
     const mockDownloadBlob = jest.fn();
     await getDownloadFile(mockDownloadBlob)
@@ -31,10 +35,11 @@ describe('download', () => {
     const link = {
       click: jest.fn()
     };
-    jest.spyOn(document, "createElement").mockImplementation(() => link);
+    const spyCreateElement = jest.spyOn(document, "createElement").mockImplementation(() => link);
     const url = 'http://localhost:8080';
     const name = 'file';
     downloadFile(url, name);
+    expect(spyCreateElement).toHaveBeenCalled();
     expect(link.href).toBe(url);
     expect(link.download).toBe(name);
     expect(link.click).toHaveBeenCalled();
