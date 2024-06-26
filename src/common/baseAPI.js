@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { errorAlert } from './alert.js'
+import { errorAlert } from '@/common/alert.js'
 import { getToken } from '@/common/universalCookie'
 
 /** @type {HttpErrorCode} */
@@ -27,34 +27,60 @@ const baseAPI = axios.create({
   }
 })
 
-baseAPI.interceptors.request.use(
-  (config) => {
-    const token = getToken()
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+/**
+ * @typedef {import('axios').InternalAxiosRequestConfig} InternalAxiosRequestConfig
+ * @typedef {import('axios').AxiosResponse} AxiosResponse
+ * @typedef {import('axios').AxiosError} AxiosError
+ *
+ */
+const interceptors = {
+  request: {
+    /**
+     * @param {InternalAxiosRequestConfig} config
+     * @returns
+     */
+    then: (config) => {
+      const token = getToken()
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+      }
+      return config
+    },
+    /**
+     * @param {AxiosError} error
+     */
+    catch: (error) => {
+      return Promise.reject(error)
     }
-    return config
   },
-  (error) => {
-    return Promise.reject(error)
-  }
-)
+  response: {
+    /**
+     * @param {AxiosResponse} res
+     * @returns
+     */
+    then: (res) => {
+      if (res.headers['content-type'] === 'application/json') {
+        return Promise.resolve(res.data)
+      }
+      return Promise.resolve(res)
+    },
 
-baseAPI.interceptors.response.use(
-  (res) => {
-    if (res.headers['content-type'] === 'application/json') {
-      return Promise.resolve(res.data)
+    /**
+     * @param {AxiosError} error
+     */
+    catch: (error) => {
+      const { response } = error
+      if (response) {
+        errorAlert(errorCode?.[response.status] || '未知錯誤')
+      }
+      return Promise.reject(error)
     }
-    return Promise.resolve(res)
-  },
-  (error) => {
-    const { response } = error
-    if (response) {
-      errorAlert(errorCode?.[response.status] || '未知錯誤')
-    }
-    return Promise.reject(error)
   }
-)
+}
+
+baseAPI.interceptors.request.use(interceptors.request.then, interceptors.request.catch)
+
+baseAPI.interceptors.response.use(interceptors.response.then, interceptors.response.catch)
 
 /**
  * @typedef {import('axios').AxiosRequestConfig} AxiosRequestConfig
@@ -80,4 +106,4 @@ const basePost = (url, data, config) => {
   return baseAPI.post(url, data, config)
 }
 
-export { baseGet, basePost }
+export { baseGet, basePost, interceptors }

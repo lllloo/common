@@ -11,10 +11,6 @@ const config = {
   moduleNameMapper: {
     "@/(.*)": "<rootDir>/src/$1"
   },
-  // 調整msw的環境
-  testEnvironmentOptions: {
-    customExportConditions: [''],
-  },
   setupFiles: ['./jest.polyfills.js'],
 };
 

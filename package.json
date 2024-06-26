@@ -22,7 +22,6 @@
     "form-data": "^4.0.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "msw": "^2.3.1",
     "prettier": "^3.3.0",
     "undici": "^6.18.2"
   },

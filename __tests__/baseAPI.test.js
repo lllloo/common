@@ -1,67 +1,106 @@
-import { server } from '@/mocks/server.js'
-import { baseGet, basePost } from '@/common/baseAPI.js';
+import { baseGet, basePost, interceptors } from '@/common/baseAPI.js';
+import mockAxios from 'axios'
 import * as alertModule from '@/common/alert.js';
 import * as cookieModule from '@/common/universalCookie';
 
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
-
 describe('axios success', () => {
-  test('allows user to log in', async () => {
+  test('baseGet', async () => {
+    const data = { username: 'admin' }
+    mockAxios.get.mockImplementationOnce(() => Promise.resolve(data))
     const res = await baseGet('/user');
-    expect(res).toEqual({ username: 'admin' })
+    expect(res).toEqual(data)
   })
 
+  test('basePost', async () => {
+    const data = { username: 'admin' }
+    mockAxios.post.mockImplementationOnce(() => Promise.resolve(data))
+    const res = await basePost('/user');
+    expect(res).toEqual(data)
+  })
 });
 
 describe('axios error', () => {
-  const spyCookie = jest.spyOn(cookieModule, 'getToken').mockImplementation(() => 'testToken')
-  const spyAlert = jest.spyOn(alertModule, 'errorAlert').mockImplementation(() => { })
-  beforeEach(() => {
-    jest.clearAllMocks()
-  });
-  test('401', async () => {
+  test('baseGet 401', async () => {
+    mockAxios.get.mockRejectedValue({ response: { status: 401 } });
     try {
       const res = await baseGet('/hasToken');
     } catch (error) {
       expect(error.response.status).toEqual(401)
-      expect(spyCookie).toHaveBeenCalled();
-      expect(spyAlert).toHaveBeenCalled();
     }
   })
 
-  test('404', async () => {
+  test('basePost 401', async () => {
+    mockAxios.post.mockRejectedValue({ response: { status: 401 } });
     try {
-      const res = await baseGet('/notfound');
+      const res = await basePost('/hasToken');
     } catch (error) {
-      expect(error.response.status).toEqual(404)
+      expect(error.response.status).toEqual(401)
+    }
+  })
+
+});
+
+
+describe('interceptors', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  });
+  test('request then', async () => {
+    const config = {
+      headers: {
+        Authorization: jest.fn()
+      }
+    }
+    const spyCookie = jest.spyOn(cookieModule, 'getToken').mockImplementation(() => 'testToken')
+    interceptors.request.then(config)
+    expect(spyCookie).toHaveBeenCalled();
+    expect(config.headers.Authorization).toBe('Bearer testToken')
+  })
+
+  test('request catch', async () => {
+    const reject = jest.spyOn(Promise, 'reject').mockImplementation(() => { })
+    try {
+      await interceptors.request.catch('error')
+    } catch (err) {
+      expect(reject).toHaveBeenCalled();
+    }
+  })
+
+  test('response then json', async () => {
+    const data = {
+      headers: {
+        'content-type': 'application/json'
+      },
+      data: 'testData'
+    }
+    const res = await interceptors.response.then(data)
+    expect(res).toEqual('testData')
+  })
+
+  test('response then not json', async () => {
+    const data = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      },
+      data: 'testData'
+    }
+    const res = await interceptors.response.then(data)
+    expect(res).toEqual(data)
+  })
+
+  test('response catch', async () => {
+    const error = {
+      response: {
+        status: 400
+      }
+    }
+    const spyAlert = jest.spyOn(alertModule, 'errorAlert')
+    const reject = jest.spyOn(Promise, 'reject')
+    try {
+      await interceptors.response.catch(error)
+    } catch (err) {
       expect(spyAlert).toHaveBeenCalled();
+      expect(reject).toHaveBeenCalled();
     }
   })
 });
-
-describe('axios download blob', () => {
-  test('image', async () => {
-    const res = await baseGet('/image');
-    const blob = new Blob([res.data], { type: res.headers['content-type'] });
-    expect(res.headers['content-type']).toEqual('image/png')
-    expect(blob).toBeInstanceOf(Blob)
-  })
-});
-
-
-// describe('axios post formData', () => {
-//   test('formData', async () => {
-//     const data = new FormData()
-//     const file = new Blob(['Hello', 'world'], { type: 'text/plain' })
-//     data.set('file', file, 'doc.txt')
-//     const res = await basePost('/file', data, {
-//       headers: {
-//         'Content-Type': 'multipart/form-data'
-//       }
-//     });
-//     console.log(res);
-//     expect(res.contents).toEqual("Helloworld")
-//   })
-// });
