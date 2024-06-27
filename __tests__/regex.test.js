@@ -22,6 +22,10 @@ describe('取得所有img', () => {
 });
 
 describe('檢查中文', () => {
+
+  beforeEach(() => {
+    jest.clearAllMocks()
+  });
   test('檢查是否只有中文', () => {
     expect(checkChinese('你好')).toBe(true);
     expect(checkChinese('鿾')).toBe(true);
@@ -30,4 +34,18 @@ describe('檢查中文', () => {
     expect(checkChinese('中文123')).toBe(false);
     expect(checkChinese('123中文')).toBe(false);
   });
+
+  test('檢查是否只有中文 不支援狀況', () => {
+    jest.spyOn(RegExp.prototype, 'test').mockImplementationOnce(() => {
+      throw new Error('SyntaxError: Invalid regular expression: /\\p{Unified_Ideograph}+$/u: Invalid escape')
+    })
+    expect(checkChinese('你好')).toBe(true);
+  })
+
+  test('檢查是否只有中文 不支援狀況', () => {
+    jest.spyOn(RegExp.prototype, 'test').mockImplementationOnce(() => {
+      throw new Error('SyntaxError: Invalid regular expression: /\\p{Unified_Ideograph}+$/u: Invalid escape')
+    })
+    expect(checkChinese('Hello')).toBe(false);
+  })
 })
