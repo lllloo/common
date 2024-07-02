@@ -42,8 +42,8 @@ describe('axios error', () => {
 
 
 describe('interceptors', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
+  afterEach(() => {
+    jest.restoreAllMocks()
   });
   test('request then', async () => {
     const config = {

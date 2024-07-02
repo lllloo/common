@@ -8,9 +8,8 @@ jest.mock('@/common/baseAPI', () => {
 })
 
 describe('download', () => {
-
-  beforeEach(() => {
-    jest.clearAllMocks()
+  afterEach(() => {
+    jest.restoreAllMocks()
   });
 
   it('downloads ajax', async () => {

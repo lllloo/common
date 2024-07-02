@@ -1,6 +1,10 @@
 import { toThousands, padStart, getRandom } from '@/common/number';
 
 describe('toThousands', () => {
+  afterEach(() => {
+    jest.restoreAllMocks()
+  });
+
   it('應該回傳帶有千分位分隔符的字串', () => {
     expect(toThousands(1000)).toBe('1,000');
     expect(toThousands(1000000)).toBe('1,000,000');
@@ -24,13 +28,14 @@ describe('toThousands', () => {
     expect(toThousands(undefined)).toBe('');
     expect(toThousands(null)).toBe('');
     expect(toThousands('')).toBe('');
+    expect(toThousands('Not a Number')).toBe('Not a Number');
   });
 
   it('Intl.NumberFormat 不支援', () => {
-    const origin = Intl.NumberFormat
-    Intl.NumberFormat = undefined
+    jest.spyOn(Intl, 'NumberFormat').mockImplementation(() => {
+      throw new Error('error')
+    })
     expect(toThousands('1000')).toBe('1000');
-    Intl.NumberFormat = origin
   });
 })
 

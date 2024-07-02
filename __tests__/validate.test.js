@@ -63,6 +63,7 @@ describe('驗證身分證 checkUniformNumbers', () => {
   });
 
   test('錯誤', () => {
+    expect(checkUniformNumbers('')).toBe(false);
     expect(checkUniformNumbers('10458571')).toBe(false);
     expect(checkUniformNumbers('10458572')).toBe(false);
     expect(checkUniformNumbers('10458573')).toBe(false);

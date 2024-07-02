@@ -22,10 +22,10 @@ describe('取得所有img', () => {
 });
 
 describe('檢查中文', () => {
-
-  beforeEach(() => {
-    jest.clearAllMocks()
+  afterEach(() => {
+    jest.restoreAllMocks()
   });
+
   test('檢查是否只有中文', () => {
     expect(checkChinese('你好')).toBe(true);
     expect(checkChinese('鿾')).toBe(true);
