@@ -33,9 +33,9 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             ${{ github.actor }} created commit: 
+            Status: ${{ needs.run.result }}
             Commit message: ${{ github.event.commits[0].message }}
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
-            Status: ${{ needs.run.result }}
 
       - name: send line message
         uses: louis70109/line-notify-action@master
@@ -43,6 +43,6 @@ jobs:
           token: ${{ secrets.LINE_TOKEN }}
           message: |
             ${{ github.actor }} created commit: 
+            Status: ${{ needs.run.result }}
             Commit message: ${{ github.event.commits[0].message }}
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
-            Status: ${{ needs.run.result }}
