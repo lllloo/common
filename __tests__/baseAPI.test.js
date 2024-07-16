@@ -6,14 +6,14 @@ import * as cookieModule from '@/common/universalCookie';
 describe('axios success', () => {
   test('baseGet', async () => {
     const data = { username: 'admin' }
-    mockAxios.get.mockImplementationOnce(() => Promise.resolve(data))
+    mockAxios.get.mockImplementation(() => Promise.resolve(data))
     const res = await baseGet('/user');
     expect(res).toEqual(data)
   })
 
   test('basePost', async () => {
     const data = { username: 'admin' }
-    mockAxios.post.mockImplementationOnce(() => Promise.resolve(data))
+    mockAxios.post.mockImplementation(() => Promise.resolve(data))
     const res = await basePost('/user');
     expect(res).toEqual(data)
   })
