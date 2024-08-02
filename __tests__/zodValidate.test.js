@@ -1,5 +1,5 @@
 import { loginSchema } from '@/schema/schema.js'
-import { validate, validateField } from '@/common/zodValidate.js'
+import { validate } from '@/common/zodValidate.js'
 describe('驗證 validate', () => {
   test('mobile 驗證成功', () => {
     const data = {
@@ -28,13 +28,13 @@ describe('驗證 validate', () => {
   })
 })
 
-describe('驗證 validateField', () => {
+describe('個別驗證', () => {
   test('mobile 驗證成功', () => {
     const data = {
       mobile: '0987654321'
     }
-
-    const result = validateField(loginSchema, 'mobile', data.mobile)
+    const mobile = loginSchema.shape.mobile
+    const result = validate(mobile, data.mobile)
     expect(result.success).toBe(true)
   })
 
@@ -42,7 +42,8 @@ describe('驗證 validateField', () => {
     const data = {
       mobile: ''
     }
-    const result = validateField(loginSchema, 'mobile', data.mobile)
+    const mobile = loginSchema.shape.mobile
+    const result = validate(mobile, data.mobile)
     expect(result.success).toBe(false)
     expect(result.error).toEqual(
       expect.objectContaining({
