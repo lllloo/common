@@ -22,22 +22,22 @@ export const loginSchema = z.object({
   password: z.string().min(1, { message: '必填' }).min(6, { message: '密碼至少6個字' })
 })
 
-// export const registerSchema = loginSchema
-//   .merge(
-//     z.object({
-//       confirmPassword: z.string().min(1, { message: '必填' }).min(6, { message: '密碼至少6個字' }),
-//       name: z.string().min(1, { message: '必填' }),
-//       gender: z.enum(['M', 'F', 'O']).nullish(),
-//       code: z.string().nullish(),
-//       interest: z.array(z.string()).min(1, { message: '至少一個' }).default([])
-//     })
-//   )
-//   .refine(
-//     ({ confirmPassword, password }) => {
-//       return confirmPassword === password
-//     },
-//     {
-//       path: ['confirmPassword'],
-//       message: '兩次密碼輸入不一致'
-//     }
-//   )
+export const registerSchema = loginSchema
+  .merge(
+    z.object({
+      confirmPassword: z.string().min(1, { message: '必填' }).min(6, { message: '密碼至少6個字' }),
+      name: z.string().min(1, { message: '必填' }),
+      gender: z.enum(['M', 'F', 'O']).nullish(),
+      code: z.string().nullish(),
+      interest: z.array(z.string()).min(1, { message: '至少一個' }).default([])
+    })
+  )
+  .refine(
+    ({ confirmPassword, password }) => {
+      return confirmPassword === password
+    },
+    {
+      path: ['confirmPassword'],
+      message: '兩次密碼輸入不一致'
+    }
+  )
