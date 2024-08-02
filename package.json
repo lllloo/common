@@ -31,7 +31,8 @@
     "dayjs": "^1.11.11",
     "js-cookie": "^3.0.5",
     "sweetalert2": "^11.12.2",
-    "universal-cookie": "^7.1.4"
+    "universal-cookie": "^7.1.4",
+    "zod": "^3.23.8"
   },
   "type": "module",
   "engines": {

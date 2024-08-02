@@ -6,6 +6,9 @@ const config = {
     '!**/node_modules/**',
     '!**/mocks/**',
   ],
+  coveragePathIgnorePatterns: [
+    '/schema/',
+  ],
   testEnvironment: "jest-environment-jsdom",
   // 路徑簡寫
   moduleNameMapper: {
