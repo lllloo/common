@@ -13,12 +13,11 @@
     // 路徑簡寫
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ]
     }
   },
   "exclude": [
     "node_modules",
-    "**/*.test.js"
   ]
 }
