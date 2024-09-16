@@ -18,7 +18,7 @@ export const isUrl = (url) => {
  * @example getParams(window.location.search)
  */
 export const getParams = (url) => {
-  return Object.fromEntries(new URLSearchParams(url).entries())
+  return Object.fromEntries(new URLSearchParams(url))
 }
 
 /**
